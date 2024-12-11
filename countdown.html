@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanford Countdown Timer</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&family=Source+Serif+4:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #820000; /* Stanford Cardinal Red */
+            color: #000000; /* Black text */
+        }
+        .countdown {
+            text-align: center;
+            background: #FFFFFF; /* White background for contrast */
+            color: #2E2D29; /* Black text for body */
+            border: 2px solid #8C1515;
+            border-radius: 10px;
+            padding: 20px;
+            border: 12px solid #006F54; /* Green border */
+        }
+        .countdown div {
+            font-size: 2rem;
+            margin: 10px 0;
+        }
+        .countdown span {
+            font-weight: bold;
+        }
+        .heading {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <div><span id="days">0</span> Days</div>
+        <div><span id="hours">0</span> Hours</div>
+        <div><span id="minutes">0</span> Minutes</div>
+        <div><span id="seconds">0</span> Seconds</div>
+    </div>
+
+    <script>
+        // Set the target date and time
+        const targetDate = new Date("2024-12-14T05:30:00").getTime();
+
+        // Update the countdown every second
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                clearInterval(interval);
+                document.querySelector(".countdown").innerHTML = "<div>The Moment is Here!</div>";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // Update the HTML elements
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+        }, 1000);
+    </script>
+</body>
+</html>
